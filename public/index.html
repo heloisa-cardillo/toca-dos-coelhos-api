@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toca dos Coelhos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Toca dos Coelhos</h1>
+    </header>
+
+    <form id="filtros">
+      <label>
+        Porte
+        <select name="porte">
+          <option value="">Todos</option>
+          <option value="mini">Mini</option>
+          <option value="medio">Médio</option>
+          <option value="grande">Grande</option>
+        </select>
+      </label>
+      <label>
+        Idade máxima
+        <input type="number" name="idadeMax" min="0" placeholder="Qualquer" />
+      </label>
+      <label>
+        Sexo
+        <select name="sexo">
+          <option value="">Todos</option>
+          <option value="macho">Macho</option>
+          <option value="femea">Fêmea</option>
+        </select>
+      </label>
+      <label>
+        Castrado
+        <select name="castrado">
+          <option value="">Todos</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+      </label>
+    </form>
+
+    <p id="mensagem" role="status"></p>
+    <main id="lista"></main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

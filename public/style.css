@@ -1,0 +1,101 @@
+:root {
+  --fundo: #fbf7f1;
+  --texto: #3b2f2a;
+  --cartao: #ffffff;
+  --mini: #e8a0b4;
+  --medio: #c49a6c;
+  --grande: #8a8f98;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+#filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#filtros label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  gap: 0.3rem;
+}
+
+#filtros select,
+#filtros input {
+  padding: 0.4rem;
+  border: 1px solid #d8cfc4;
+  border-radius: 6px;
+  min-width: 8rem;
+}
+
+#mensagem {
+  text-align: center;
+}
+
+#lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.cartao {
+  background: var(--cartao);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+}
+
+.cartao svg {
+  width: 80px;
+  height: 80px;
+}
+
+.cartao.mini svg {
+  fill: var(--mini);
+}
+
+.cartao.medio svg {
+  fill: var(--medio);
+}
+
+.cartao.grande svg {
+  fill: var(--grande);
+}
+
+.cartao h2 {
+  margin: 0.5rem 0;
+}
+
+.cartao ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+}
