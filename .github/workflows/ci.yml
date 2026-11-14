@@ -1,0 +1,69 @@
+name: CI - Toca dos Coelhos API
+
+# Gatilho: roda a cada Pull Request aberto, atualizado ou reaberto para a main
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  integracao:
+    name: Integração contínua
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      IMAGEM: toca-dos-coelhos-api:${{ github.sha }}
+
+    steps:
+      - name: Baixar o código do PR
+        uses: actions/checkout@v7
+
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Análise estática (ESLint)
+        run: npm run lint
+
+      - name: Análise de formatação (Prettier)
+        run: npm run format:check
+
+      - name: Análise estática de segurança (npm audit)
+        run: npm run security
+
+      - name: Build da aplicação
+        run: npm run build
+
+      - name: Testes unitários
+        run: npm run test:unit
+
+      - name: Testes de integração
+        run: npm run test:integration
+
+      - name: Criar imagem Docker
+        run: docker build --tag "$IMAGEM" .
+
+      - name: Testar a imagem em execução
+        run: |
+          docker run -d --name toca -p 3000:3000 "$IMAGEM"
+          curl --fail --silent --retry 10 --retry-delay 1 --retry-all-errors \
+            "http://localhost:3000/api/coelhos?porte=grande"
+          docker rm -f toca
+
+      - name: Exportar a imagem
+        run: docker save "$IMAGEM" | gzip > imagem-toca-dos-coelhos-api.tar.gz
+
+      - name: Publicar a imagem como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: imagem-toca-dos-coelhos-api-${{ github.sha }}
+          path: imagem-toca-dos-coelhos-api.tar.gz
+          retention-days: 7
